@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
             'document' => 'required|cpf_ou_cnpj|unique:users',
-            'phone_number' => 'required',
+            'phone_number' => 'required|numeric',
             'password' => 'required|min:6',
             ];
     }
