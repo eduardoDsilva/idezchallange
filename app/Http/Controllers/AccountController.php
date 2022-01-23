@@ -16,9 +16,12 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = Account::all();
-
-        return response()->json($accounts);
+        try {
+            $accounts = Account::all();
+            return response()->json($accounts, 200);
+        } catch (\Exception $exception) {
+            return response()->json('error', 404);
+        }
     }
 
     /**
@@ -31,9 +34,9 @@ class AccountController extends Controller
     {
         try {
             $accountRepository->saveAccount($request->all());
-            return response()->json('ok');
+            return response()->json('Success', 200);
         } catch (\Exception $exception) {
-            return response()->json('erro');
+            return response()->json('error', 404);
         }
     }
 

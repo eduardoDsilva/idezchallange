@@ -28,9 +28,9 @@ class TransactionController extends Controller
     {
         try {
             Transaction::create($request->all());
-            return response()->json('ok');
+            return response()->json('Success', 200);
         } catch (\Exception $exception) {
-            return response()->json('erro');
+            return response()->json('error', 404);
         }
     }
 
@@ -42,9 +42,8 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        $transaction = Transaction::find($transaction);
-        return response()->json($transaction);
-
+        $transaction = Transaction::findOrFail($transaction->id);
+        return response()->json($transaction, 200);
     }
 
     /**

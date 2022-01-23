@@ -24,8 +24,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->userRepository->getUsers($request);
-        return response()->json($users);
+        try {
+            $users = $this->userRepository->getUsers($request);
+            return response()->json($users, 200);
+        } catch (\Exception $exception) {
+            return response()->json('error', 404);
+        }
     }
 
     /**
@@ -36,9 +40,12 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-
-        $this->userRepository->saveUser($request->all());
-        return response()->json('ok');
+        try {
+            $this->userRepository->saveUser($request->all());
+            return response()->json('Success', 200);
+        } catch (\Exception $exception) {
+            return response()->json('error', 404);
+        }
     }
 
     /**
