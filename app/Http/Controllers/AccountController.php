@@ -2,32 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TransactionRequest;
-use App\Transaction;
+use App\Account;
+use App\Http\Requests\AccountRequest;
+use App\Repositories\AccountRepository;
 use Illuminate\Http\Request;
 
-class TransactionController extends Controller
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        $accounts = Account::all();
+
+        return response()->json($accounts);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param TransactionRequest $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(TransactionRequest $request)
+    public function store(AccountRequest $request, AccountRepository $accountRepository)
     {
         try {
-            Transaction::create($request->all());
+            $accountRepository->saveAccount($request->all());
             return response()->json('ok');
         } catch (\Exception $exception) {
             return response()->json('erro');
@@ -37,24 +40,23 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Transaction $transaction
+     * @param \App\Account $account
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Transaction $transaction)
+    public function show(Account $account)
     {
-        $transaction = Transaction::find($transaction);
-        return response()->json($transaction);
-
+        $account = Account::findOrFail($account->id);
+        return response()->json($account, 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Transaction $transaction
+     * @param \App\Account $account
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(Request $request, Account $account)
     {
         //
     }
@@ -62,10 +64,10 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Transaction $transaction
+     * @param \App\Account $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaction $transaction)
+    public function destroy(Account $account)
     {
         //
     }

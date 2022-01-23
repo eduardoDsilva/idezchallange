@@ -16,8 +16,9 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->float('amount', 15, 2);
-            $table->foreignId('id_transaction_type')
-                ->constrained('transactions_types');
+            $table->enum('type', ['Pagamento de Conta', 'Depósito', 'Transferência', 'Recarga de Celular', 'Compra (Crédito)']);
+            $table->foreignId('account_id')
+                ->constrained('accounts');
             $table->timestamps();
         });
     }

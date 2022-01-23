@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePersonsTable extends Migration
+class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreatePersonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('persons', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->string('agency');
             $table->integer('number');
             $table->integer('digit');
-            $table->string('_name');
-            $table->integer('cpf');
+            $table->string('name');
+            $table->string('social_reason')->nullable();
+            $table->enum('type', ['Company', 'Person']);
+            $table->string('document');
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
@@ -34,6 +36,6 @@ class CreatePersonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('persons');
+        Schema::dropIfExists('account');
     }
 }

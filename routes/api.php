@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('users', 'UserController');
 
-Route::apiResource('companies', 'CompanyController');
-
-Route::apiResource('person', 'PersonController');
+Route::apiResource('accounts', 'AccountController');
 
 Route::apiResource('transactions', 'TransactionController');
-
-Route::apiResource('transactions_type', 'TransactionTypeController');
