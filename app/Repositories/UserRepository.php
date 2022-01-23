@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
@@ -32,7 +33,7 @@ class UserRepository
     {
         $data['document'] = preg_replace('/[^0-9]/', '', $data['document']);
         $data['phone_number'] = preg_replace('/[^0-9]/', '', $data['phone_number']);
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = Hash::make($data['password']);
         return $data;
     }
 }

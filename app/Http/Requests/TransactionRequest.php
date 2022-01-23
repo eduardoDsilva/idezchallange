@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\TransactionAccountType;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -29,7 +30,8 @@ class TransactionRequest extends FormRequest
         return [
             'amount' => 'required|numeric',
             'type' => ['required', Rule::in(['Pagamento de Conta', 'Depósito', 'Transferência', 'Recarga de Celular', 'Compra (Crédito)'])],
-            'account_id' => ['required', 'exists:App\Account,id']
+            'account_id' => ['required', 'exists:App\Account,id'],
+            'password' => ['required',  new TransactionAccountType()]
         ];
     }
 
